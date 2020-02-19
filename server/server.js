@@ -17,9 +17,9 @@ mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTo
 
 // Middleware
 
-const userRouter = require('./routes/users');
+const userRouter = require('./routes/User');
 
-app.use('/users', userRouter);
+app.use('/User', userRouter);
 
 
 

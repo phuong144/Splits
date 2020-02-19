@@ -33,12 +33,13 @@ export default class SignUp extends Component {
 
     const user = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+
     }
 
     //console.log(user) if this logs, it will expose pass
 
-    axios.post('http://localhost:4000/users/signup', user)
+    axios.post('http://localhost:4000/User/signup', user)
       .then(res => {
           //console.log(res.data);
           if(res.status == 200){

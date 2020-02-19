@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import Navbar from "./navbar.component";
 import SignIn from "./signin.component";
 import SignUp from "./signup.component";
+import Workout from "./workout.component";
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -12,6 +13,7 @@ export default class HomePage extends Component {
     
         this.state = {
           user:this.props.location.state.user,
+          
         }
         console.log(this.state.user.email);
     }
@@ -21,7 +23,10 @@ export default class HomePage extends Component {
                 <div className="container">
                 <Navbar />
                 <br/>
-                <Route path="/signup" component={SignUp} />
+                <Route 
+                    path="/workout" 
+                    render={(props) => <Workout {...props} user={this.state.user} />}
+                />
                 </div>
             </Router>
         )
