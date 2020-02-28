@@ -14,11 +14,11 @@ export default class Workout extends Component {
           user:this.props.user,
           workout:{},
         }
-        console.log(this.state.user.email);
+        console.log("Email : " + this.state.user.email);
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/User/workout')
+        axios.post('http://localhost:4000/User/workout', this.state.user)
       .then(res => {
         //console.log(res.data);
         if(res.status == 200){
@@ -26,6 +26,8 @@ export default class Workout extends Component {
                 workout : res.data,
             })
             console.log(res.data)
+        }else{
+          console.log("Failed to get workout");
         }
       }
         
@@ -33,7 +35,7 @@ export default class Workout extends Component {
     }
     render() {
         return (
-           <p>Today's Workout</p>
+          <div><pre>{JSON.stringify(this.state.workout, null, 2) }</pre></div>
         )
     }
 }
