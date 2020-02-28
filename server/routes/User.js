@@ -47,7 +47,8 @@ router.route('/workout').post((req,res) => {
     // Get user Split, ex User.split == 'ppl'
     //Split.'ppl'.get/
     //return data
-
+    let today = new Date();
+    let day = today.getDay(); // 0 = Sunday, 1 = Monday, ...
     User.findOne({'email': req.body.email}, function (err, user){
         let split = user.split;
         const client = new MongoClient(uri, { useNewUrlParser: true });
@@ -59,6 +60,15 @@ router.route('/workout').post((req,res) => {
             Splits.findOne({_id : split}, function(err, routine){
                 if(err) throw err;
                 console.log(routine);
+
+                /*
+                if(day == 1){
+                    res.status(200).send(routine.split.push1);
+                }else if(day == 2){
+                    res.status(200).send(routine.split.push2);
+                }*/
+
+
                 res.status(200).send(routine);
             })
             client.close();

@@ -12,6 +12,7 @@ export default class Workout extends Component {
     
         this.state = {
           user:this.props.user,
+          split:{},
           workout:{},
         }
         console.log("Email : " + this.state.user.email);
@@ -22,10 +23,51 @@ export default class Workout extends Component {
       .then(res => {
         //console.log(res.data);
         if(res.status == 200){
-            this.setState({
-                workout : res.data,
-            })
-            console.log(res.data)
+            let split = res.data._id;
+            switch (new Date().getDay()) {
+              case 0:
+                //day = "Sunday";
+                break;
+              case 1:
+                //day = "Monday";
+                //if split == 'ppl', workout = push1
+                //else if split =='upper/lower' = upper1
+                this.setState({
+                  workout : res.data[split]['push1'],
+              })
+                break;
+              case 2:
+                 //day = "Tuesday";
+                 this.setState({
+                  workout : res.data[split]['pull1'],
+              })
+                break;
+              case 3:
+                //day = "Wednesday";
+                this.setState({
+                  workout : res.data[split]['leg1'],
+              })
+                break;
+              case 4:
+                //day = "Thursday";
+                this.setState({
+                  workout : res.data[split]['push2'],
+              })
+                break;
+              case 5:
+                //day = "Friday";
+                this.setState({
+                  workout : res.data[split]['pull2'],
+              })
+                break;
+              case 6:
+                //day = "Saturday";
+                this.setState({
+                  workout : res.data[split]['leg'],
+              })
+            }
+
+            //console.log(res)
         }else{
           console.log("Failed to get workout");
         }
