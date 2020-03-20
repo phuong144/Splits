@@ -8,9 +8,7 @@ var MongoClient = require('mongodb').MongoClient;
 const uri = process.env.ATLAS_URI;
 
 router.route('/').get((req, res) => {
-  User.find()
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
+  
 });
 
 router.route('/signup').post((req, res) => {
@@ -74,6 +72,36 @@ router.route('/workout').post((req,res) => {
             client.close();
         })
 
+        
+    })
+})
+
+router.route('/switch').post((req,res) => {
+    const newsplit = req.body.split
+    User.findOneAndUpdate({email:req.body.user.email}, {$set:{split:newsplit}}, {new:true} , function (err, doc){
+        if(err){ return console.dir(err);}
+        res.status(200).send(doc);
+        
+
+        
+    })
+})
+
+router.route('/switch2').post((req,res) => {
+    
+    User.findOne({'email': req.body.email}, function(err, user){
+        if(!user){
+            res.json({message: 'user not found'});
+        }
+        else{
+            res.status(200).send(user);
+        }
+        //console.log(user + "this is a user");
+        //console.log(user.split); works
+
+        // If email is present, compare to password
+        
+        
         
     })
 })

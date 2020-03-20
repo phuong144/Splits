@@ -12,7 +12,8 @@ export default class Workout extends Component {
     
         this.state = {
           user:this.props.user,
-          split:{},
+          split:'',
+          workoutId: '',
           workout:{},
         }
         console.log("Email : " + this.state.user.email);
@@ -24,46 +25,107 @@ export default class Workout extends Component {
         //console.log(res.data);
         if(res.status == 200){
             let split = res.data._id;
+            this.setState({
+              split : split,
+            })
+            let workout;
             switch (new Date().getDay()) {
               case 0:
-                //day = "Sunday";
                 break;
               case 1:
                 //day = "Monday";
-                //if split == 'ppl', workout = push1
-                //else if split =='upper/lower' = upper1
+                if (split == 'ppl'){
+                  workout = 'push1';
+                }
+                else if (split =='upper/lower'){
+                  workout = 'upper1';
+                }
+                else if(split == 'full'){
+                  workout = 'full1';
+                }
                 this.setState({
-                  workout : res.data[split]['push1'],
-              })
+                  workout : res.data[split][workout],
+                  workoutId : workout,
+                })
                 break;
               case 2:
-                 //day = "Tuesday";
-                 this.setState({
-                  workout : res.data[split]['pull1'],
-              })
+                //day = "Tuesday";
+                if (split == 'ppl'){
+                  workout = 'pull1';
+                }
+                else if (split =='upper/lower'){
+                  workout = 'lower1';
+                }
+                else if(split == 'full'){
+                  workout = '';
+                }
+                this.setState({
+                  workout : res.data[split][workout],
+                  workoutId : workout,
+                })
                 break;
               case 3:
                 //day = "Wednesday";
+                if (split == 'ppl'){
+                  workout = 'leg1';
+                }
+                else if (split =='upper/lower'){
+                  workout = '';
+                }
+                else if(split == 'full'){
+                  workout = '';
+                }
                 this.setState({
-                  workout : res.data[split]['leg1'],
-              })
+                  workout : res.data[split][workout],
+                  workoutId : workout,
+                })
                 break;
               case 4:
                 //day = "Thursday";
+                if (split == 'ppl'){
+                  workout = 'push2';
+                }
+                else if (split =='upper/lower'){
+                  workout = 'upper2';
+                }
+                else if(split == 'full'){
+                  workout = 'full2';
+                }
                 this.setState({
-                  workout : res.data[split]['push2'],
+                  workout : res.data[split][workout],
+                  workoutId : workout,
               })
                 break;
               case 5:
                 //day = "Friday";
+                if (split == 'ppl'){
+                  workout = 'pull2';
+                }
+                else if (split =='upper/lower'){
+                  workout = 'lower2';
+                }
+                else if(split == 'full'){
+                  workout = '';
+                }
                 this.setState({
-                  workout : res.data[split]['pull2'],
+                  workout : res.data[split][workout],
+                  workoutId : workout,
               })
                 break;
               case 6:
                 //day = "Saturday";
+                if (split == 'ppl'){
+                  workout = 'leg1';
+                }
+                else if (split =='upper/lower'){
+                  workout = '';
+                }
+                else if(split == 'full'){
+                  workout = '';
+                }
                 this.setState({
-                  workout : res.data[split]['leg'],
+                  workout : res.data[split][workout],
+                  workoutId : workout,
               })
             }
 
@@ -76,8 +138,16 @@ export default class Workout extends Component {
     );
     }
     render() {
-        return (
-          <div><pre>{JSON.stringify(this.state.workout, null, 2) }</pre></div>
-        )
+        if(this.state.workoutId == ''){
+          return<h1>REST DAY</h1>
+        }else{
+          return (
+
+            <div>
+              <h1>{this.state.split} - {this.state.workoutId}</h1>
+              <pre>{JSON.stringify(this.state.workout, null, 2) }</pre>
+            </div>
+          )
+        }
     }
 }

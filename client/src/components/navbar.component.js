@@ -13,7 +13,7 @@ export default class Navbar extends Component {
           <Link to="/workout" className="nav-link">View Today's Workout</Link>
           </li>
           <li className="navbar-item">
-          <Link to="/splits" className="nav-link">Choose Split</Link>
+          <Link to="/switch" className="nav-link">Choose Split</Link>
           </li>
         </ul>
         </div>
