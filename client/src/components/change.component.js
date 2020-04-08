@@ -62,9 +62,9 @@ export default class Switch extends Component {
     render() {
         return(
             <div>
-            <h1>Current split : {this.state.split}</h1>
+            <h1 style={{textAlign:"center"}}>Current split : {this.state.split}</h1>
             
-            <div className='row'>
+            <div className='row' style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
                 <button onClick={(e) => this.handleClick('ppl', e)} href='/'>Push-Pull-Legs</button>
                 <button onClick={(e) => this.handleClick('upper/lower', e)} href='/'>Upper - Lower</button>
                 <button onClick={(e) => this.handleClick('full', e)} href='/'>Full Body</button>

@@ -25,7 +25,7 @@ export default class HomePage extends Component {
                 <Navbar />
                 <br/>
                 <Route 
-                    exact path="/workout" 
+                    path="/workout" 
                     render={(props) => <Workout {...props} user={this.state.user} />}
                 />
                 <Route 

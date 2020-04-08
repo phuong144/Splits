@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import './navbar.css';
 export default class Navbar extends Component {
 
   render() {
     return (
+      <div>
+
+      
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-        <Link to="/" className="navbar-brand">Splits</Link>
-        <div className="collpase navbar-collapse">
-        <ul className="navbar-nav mr-auto">
-          <li className="navbar-item">
+      
+        <div className="collpase navbar-collapse" > 
+        <div className="navbar-nav mr-auto">
+        <h1 style={{color:"white"}}>Splits</h1>
+        <div className="row" style={{justifyContent:"center"}}>
+        <p className="navbar-item">
           <Link to="/workout" className="nav-link">View Today's Workout</Link>
-          </li>
-          <li className="navbar-item">
+          </p>
+          
+          <p className="navbar-item">
           <Link to="/switch" className="nav-link">Choose Split</Link>
-          </li>
-        </ul>
+          </p>
+        </div>
+          
+        </div>
         </div>
       </nav>
+      </div>
     );
   }
 }
+//className="navbar navbar-dark bg-dark navbar-expand-lg"

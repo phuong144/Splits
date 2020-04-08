@@ -139,11 +139,15 @@ export default class Workout extends Component {
     }
     render() {
         if(this.state.workoutId == ''){
-          return<h1>REST DAY</h1>
+          return (
+          <div style={{textAlign:"center"}}>
+            <h1>REST DAY</h1>
+          </div>
+          )
         }else{
           return (
 
-            <div>
+            <div style={{textAlign:"center"}}>
               <h1>{this.state.split} - {this.state.workoutId}</h1>
               <pre>{JSON.stringify(this.state.workout, null, 2) }</pre>
             </div>

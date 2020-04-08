@@ -1,0 +1,10 @@
+.navbar .navbar-nav {
+    display: inline;
+    float: none;
+    vertical-align: top;
+    width:100%;
+  }
+  
+  .navbar .navbar-collapse {
+    text-align: center;
+  }
