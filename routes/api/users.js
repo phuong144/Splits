@@ -11,6 +11,7 @@ const validateLoginInput = require("../../validation/login");
 const User = require("../../models/User");
 
 let mongoose = require('mongoose');
+
 let db = mongoose.connection;
 // Retrieve
 var MongoClient = require('mongodb').MongoClient;
@@ -136,14 +137,14 @@ router.route('/signin').post((req, res) =>{
 
 */
 
-/*
+
 router.route('/workout').post((req,res) => {
     // Get user Split, ex User.split == 'ppl'
     //Split.'ppl'.get/
     //return data
     let today = new Date();
     let day = today.getDay(); // 0 = Sunday, 1 = Monday, ...
-    User.findOne({'email': req.body.email}, function (err, user){
+    User.findOne({'_id': req.body.id}, function (err, user){
         let split = user.split;
         const client = new MongoClient(uri, { useNewUrlParser: true });
 
@@ -153,7 +154,7 @@ router.route('/workout').post((req,res) => {
             
             Splits.findOne({_id : split}, function(err, routine){
                 if(err) throw err;
-                console.log(routine);
+                //console.log(routine);
 
 
                 res.status(200).send(routine);
@@ -166,19 +167,60 @@ router.route('/workout').post((req,res) => {
 })
 
 router.route('/switch').post((req,res) => {
+  /*
+  const client = new MongoClient(uri, { useNewUrlParser: true });
+  //const newsplit = req.body.split
+  console.log("id = "+req.body.user.id);
+  
+  client.connect(err => {
+      if(err){ return console.dir(err + " errrrr");}
+      var users = client.db("test").collection('users');
+      const newsplit = req.body.split;
+      console.log(newsplit);
+      users.findOneAndUpdate({_id:req.body.user.id}, {$set:{split:newsplit}}, {returnOriginal:false}, function(error, result){
+        if (error) { throw error; }
+
+        else { 
+          console.log(result.val);
+          res.status(200).send(result.val);
+        }
+      })/*
+      .then(updatedDocument =>{
+        if(updatedDocument){
+          console.log(`Successfully updated document: ${updatedDocument}.`);
+          console.log(updatedDocument);
+          res.status(200).send(updatedDocument);
+        }else{
+          console.log("No document matches the provided query.")
+          client.close();
+          return null;
+        }
+      }).catch(err => console.error(`Failed to find and update document: ${err}`));
+      
+      
+      client.close();
+
+      
+  })
+    */
+   
     const newsplit = req.body.split
-    User.findOneAndUpdate({email:req.body.user.email}, {$set:{split:newsplit}}, {new:true} , function (err, doc){
+    User.findOneAndUpdate({_id:req.body.user.id}, {$set:{split:newsplit}}, {new:true} , function (err, doc){
         if(err){ return console.dir(err);}
         res.status(200).send(doc);
         
-
         
+    
     })
+    
+    
+    
 })
+
 
 router.route('/switch2').post((req,res) => {
     
-    User.findOne({'email': req.body.email}, function(err, user){
+    User.findOne({'_id': req.body.id}, function(err, user){
         if(!user){
             res.json({message: 'user not found'});
         }
@@ -194,6 +236,6 @@ router.route('/switch2').post((req,res) => {
         
     })
 })
-*/
+
 
 module.exports = router;

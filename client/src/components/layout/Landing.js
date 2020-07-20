@@ -4,18 +4,18 @@ class Landing extends Component {
   render() {
     return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
-        <div className="row">
+        
           <div className="col s12 center-align">
             <h4>
-              <b>Build</b> a login/auth app with the{" "}
-              <span style={{ fontFamily: "monospace" }}>MERN</span> stack from
-              scratch
+              <b>Welcome to Splits</b> 
             </h4>
             <p className="flow-text grey-text text-darken-1">
-              Create a (minimal) full-stack app with user authentication via
-              passport and JWTs
+              Have your own customized workout available in a click of a button
             </p>
             <br />
+            <div className="row">
+
+            
             <div className="col s6">
               <Link
                 to="/register"
@@ -42,8 +42,9 @@ class Landing extends Component {
                 Log In
               </Link>
             </div>
+            </div>
           </div>
-        </div>
+        
       </div>
     );
   }

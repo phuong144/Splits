@@ -5,8 +5,10 @@ import axios from 'axios'
 import Navbar from "./navbar.component";
 import SignIn from "./signin.component";
 import SignUp from "./signup.component";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-export default class Workout extends Component {
+class Workout extends Component {
     constructor(props) {
         super(props);
         let _isMounted = false;
@@ -17,14 +19,15 @@ export default class Workout extends Component {
           workout:{},
           isLoading:true,
         }
-        console.log("Email : " + this.state.user.email);
+        console.log(this.state.user);
     }
 
     componentDidMount() {
       this._isMounted = true;
+      const { user } = this.props.auth;
 
       
-      axios.post('https://splits-app.herokuapp.com/User/workout', this.state.user)
+      axios.post('/api/users/workout', user)
       .then(res => {
         //console.log(res.data);
         if(res.status == 200 && this._isMounted == true){
@@ -151,6 +154,7 @@ export default class Workout extends Component {
     }
 
     render() {
+        const { user } = this.props.auth;
         if(this.state.workoutId == ''){
           return (
           <div style={{textAlign:"center"}}>
@@ -167,4 +171,14 @@ export default class Workout extends Component {
           )
         }
     }
+    
 }
+Workout.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(
+  mapStateToProps
+)(Workout);

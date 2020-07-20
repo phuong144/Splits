@@ -12,14 +12,14 @@ export default class Navbar extends Component {
       
         <div className="collpase navbar-collapse" > 
         <div className="navbar-nav mr-auto">
-        <h1 style={{color:"white"}}>Splits</h1>
+        
         <div className="row" style={{justifyContent:"center"}}>
         <p className="navbar-item">
-          <Link to="/home/workout" className="nav-link">View Today's Workout</Link>
+          <Link to="/dashboard/workout" className="nav-link">View Today's Workout</Link>
           </p>
           
           <p className="navbar-item">
-          <Link to="/home/switch" className="nav-link">Choose Split</Link>
+          <Link to="/dashboard/switch" className="nav-link">Choose Split</Link>
           </p>
         </div>
           

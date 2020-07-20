@@ -5,17 +5,23 @@ import axios from 'axios'
 import Navbar from "./navbar.component";
 import SignIn from "./signin.component";
 import SignUp from "./signup.component";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-export default class Switch extends Component {
+class Change extends Component {
     constructor(props) {
+        
         super(props);
         let _isMounted = false;
+        
+        
         this.state = {
-          user:this.props.user,
+            user:this.props.user,
           isMounted:false,
           split:'',
           isLoading:true,
         }
+        console.log(this.state.user);
         this.handleClick = this.handleClick.bind(this);
         //console.log("Email : " + this.state.user.email);
     }
@@ -23,7 +29,9 @@ export default class Switch extends Component {
 
     componentDidMount(){
         this._isMounted = true;
-        axios.post('https://splits-app.herokuapp.com/User/switch2', this.state.user)
+        
+        console.log(this.state.user);
+        axios.post('/api/users/switch2', this.state.user)
         .then(res => {
             if(res.status = 200 && this._isMounted){
                 this.setState({
@@ -41,14 +49,15 @@ export default class Switch extends Component {
     
     handleClick(split,e) {
         e.preventDefault();
-        axios.post('https://splits-app.herokuapp.com/User/switch', {user:this.state.user, split: split})
+        
+        axios.post('/api/users/switch', {user:this.state.user, split: split})
         .then(res => {
             if(res.status = 200 && this._isMounted){
                 this.setState({
                     split:res.data.split,
                 })
                 //alert("Successfully changed splits!");
-                
+                console.log(this.state.split);
                 
             }else{
                 console.log("Unable to change split");
@@ -74,6 +83,15 @@ export default class Switch extends Component {
         );
     }
 }
+Change.propTypes = {
+    auth: PropTypes.object.isRequired
+  };
+  const mapStateToProps = state => ({
+    auth: state.auth
+  });
+  export default connect(
+    mapStateToProps
+  )(Change);
 /*
 <a onClick={this.handleClick('ppl')}>Push-Pull-Legs</a>
                 <a onClick={this.handleClick('upper/lower')}>Upper - Lower</a>
