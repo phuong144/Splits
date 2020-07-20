@@ -10,12 +10,16 @@ const port = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json()); // Converts data body into JSON format (originally bodyParser)
-app.use(express.static(path.join(__dirname, 'build')));
 
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+// Handle React routing, return all requests to React app
+  app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
 
 const uri = process.env.ATLAS_URI;
