@@ -65,12 +65,13 @@ export default class SignUp extends Component {
           )
       }else{
         return (
-        <div>
+        <div style={{textAlign:"center", justifyContent:"center"}}>
             <h3>Create New User</h3>
             <form onSubmit={this.onSubmit}>
             <div className="form-group"> 
                 <label>Username: </label>
                 <input  type="text"
+                    style={{width:"50%", marginLeft:"auto", marginRight:"auto"}}
                     required
                     className="form-control"
                     value={this.state.username}
@@ -78,6 +79,7 @@ export default class SignUp extends Component {
                     />
                 <label>Password: </label>
                 <input  type="text"
+                    style={{width:"50%", marginLeft:"auto", marginRight:"auto"}}
                     required
                     className="form-control"
                     value={this.state.password}

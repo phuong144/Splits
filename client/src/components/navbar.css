@@ -8,3 +8,8 @@
   .navbar .navbar-collapse {
     text-align: center;
   }
+
+  .navbar-Item{
+    margin-left:5px;
+    margin-right:5px;
+  }
