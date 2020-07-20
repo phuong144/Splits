@@ -39,7 +39,7 @@ export default class SignUp extends Component {
 
     //console.log(user);
 
-    axios.post('http://localhost:4000/User/signin', user)
+    axios.post('https://splits-app.herokuapp.com/User/signin', user)
       .then(res => {
         //console.log(res.data);
         if(res.status == 200){

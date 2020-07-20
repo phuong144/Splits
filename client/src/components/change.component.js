@@ -23,7 +23,7 @@ export default class Switch extends Component {
 
     componentDidMount(){
         this._isMounted = true;
-        axios.post('http://localhost:4000/User/switch2', this.state.user)
+        axios.post('https://splits-app.herokuapp.com/User/switch2', this.state.user)
         .then(res => {
             if(res.status = 200 && this._isMounted){
                 this.setState({
@@ -41,7 +41,7 @@ export default class Switch extends Component {
     
     handleClick(split,e) {
         e.preventDefault();
-        axios.post('http://localhost:4000/User/switch', {user:this.state.user, split: split})
+        axios.post('https://splits-app.herokuapp.com/User/switch', {user:this.state.user, split: split})
         .then(res => {
             if(res.status = 200 && this._isMounted){
                 this.setState({

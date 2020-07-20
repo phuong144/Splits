@@ -39,7 +39,7 @@ export default class SignUp extends Component {
 
     //console.log(user) if this logs, it will expose pass
 
-    axios.post('http://localhost:4000/User/signup', user)
+    axios.post('https://splits-app.herokuapp.com/User/signup', user)
       .then(res => {
           //console.log(res.data);
           if(res.status == 200){

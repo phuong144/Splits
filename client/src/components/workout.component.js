@@ -24,7 +24,7 @@ export default class Workout extends Component {
       this._isMounted = true;
 
       
-      axios.post('http://localhost:4000/User/workout', this.state.user)
+      axios.post('https://splits-app.herokuapp.com/User/workout', this.state.user)
       .then(res => {
         //console.log(res.data);
         if(res.status == 200 && this._isMounted == true){
