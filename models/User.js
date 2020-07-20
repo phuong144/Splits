@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const userSchema = mongoose.Schema({
+const bcrypt = require('bcryptjs');
+const UserSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+      },
     email : {
         type: String,
         required: true,
@@ -14,8 +18,13 @@ const userSchema = mongoose.Schema({
     },
     split:{
         type:String,
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 });
+/*
 
 let SALT = 10;
 userSchema.pre('save', function(next){
@@ -41,7 +50,7 @@ userSchema.methods.comparePassword = function(candidatePassword, checkpassword){
         checkpassword(null, isMatch)
     })
 }
+*/
 
 
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = User = mongoose.model("users", UserSchema);
