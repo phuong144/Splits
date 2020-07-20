@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 
 import Navbar from "./navbar.component";
 import SignIn from "./signin.component";
@@ -24,12 +24,15 @@ export default class HomePage extends Component {
                 <div className="container">
                 <Navbar />
                 <br/>
+                <Route exact path="/home">
+                        <Redirect to="/home/workout" />
+                </Route>
                 <Route 
-                    path="/workout" 
+                    path="/home/workout" 
                     render={(props) => <Workout {...props} user={this.state.user} />}
                 />
                 <Route 
-                    path="/switch" 
+                    path="/home/switch" 
                     render={(props) => <Switch {...props} user={this.state.user}/>}
                 />
                 </div>

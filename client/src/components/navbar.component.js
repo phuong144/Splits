@@ -15,11 +15,11 @@ export default class Navbar extends Component {
         <h1 style={{color:"white"}}>Splits</h1>
         <div className="row" style={{justifyContent:"center"}}>
         <p className="navbar-item">
-          <Link to="/workout" className="nav-link">View Today's Workout</Link>
+          <Link to="/home/workout" className="nav-link">View Today's Workout</Link>
           </p>
           
           <p className="navbar-item">
-          <Link to="/switch" className="nav-link">Choose Split</Link>
+          <Link to="/home/switch" className="nav-link">Choose Split</Link>
           </p>
         </div>
           

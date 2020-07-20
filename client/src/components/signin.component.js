@@ -72,30 +72,32 @@ export default class SignUp extends Component {
       }else{
         return (
         
-            <div>
+            <div style={{textAlign:"center", justifyContent:"center"}}>
               <h3>Sign In</h3>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group"> 
                   <label>Username: </label>
                   <input  type="text"
+                      style={{width:"50%", marginLeft:"auto", marginRight:"auto"}}
                       required
                       className="form-control"
                       value={this.state.username}
                       onChange={this.onChangeUsername}
                       />
                   <label>Password: </label>
-                  <input  type="text"
+                  <input  type="password"
+                      style={{width:"50%", marginLeft:"auto", marginRight:"auto"}}
                       required
                       className="form-control"
                       value={this.state.password}
                       onChange={this.onChangePassword}
                       />
                 </div>
-                <div className="row">
-                    <div className="form-group">
+                <div className="row" style={{textAlign:"center", justifyContent:"center"}}>
+                    <div className="form-group" style={{marginRight:"5px"}}>
                     <input type="submit" value="Sign In" className="btn btn-primary" />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group" style={{marginLeft:"5px"}}>
                     <Link to="/signup" className="btn btn-primary">Sign Up</Link>
                     </div>
                 </div>

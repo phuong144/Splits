@@ -9,21 +9,25 @@ import SignUp from "./signup.component";
 export default class Workout extends Component {
     constructor(props) {
         super(props);
-    
+        let _isMounted = false;
         this.state = {
           user:this.props.user,
           split:'',
           workoutId: '',
           workout:{},
+          isLoading:true,
         }
         console.log("Email : " + this.state.user.email);
     }
 
     componentDidMount() {
-        axios.post('http://localhost:4000/User/workout', this.state.user)
+      this._isMounted = true;
+
+      
+      axios.post('http://localhost:4000/User/workout', this.state.user)
       .then(res => {
         //console.log(res.data);
-        if(res.status == 200){
+        if(res.status == 200 && this._isMounted == true){
             let split = res.data._id;
             this.setState({
               split : split,
@@ -126,17 +130,26 @@ export default class Workout extends Component {
                 this.setState({
                   workout : res.data[split][workout],
                   workoutId : workout,
+                })
+              }
+
+              this.setState({
+                isLoading:false,
               })
-            }
 
             //console.log(res)
-        }else{
-          console.log("Failed to get workout");
-        }
-      }
-        
-    );
+          }else{
+            console.log("Unmounted");
+          }
+      })
     }
+
+    componentWillUnmount() {
+        
+      this._isMounted=false
+      
+    }
+
     render() {
         if(this.state.workoutId == ''){
           return (

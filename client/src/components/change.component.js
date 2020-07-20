@@ -9,11 +9,12 @@ import SignUp from "./signup.component";
 export default class Switch extends Component {
     constructor(props) {
         super(props);
-    
+        let _isMounted = false;
         this.state = {
           user:this.props.user,
           isMounted:false,
           split:'',
+          isLoading:true,
         }
         this.handleClick = this.handleClick.bind(this);
         //console.log("Email : " + this.state.user.email);
@@ -21,14 +22,13 @@ export default class Switch extends Component {
 
 
     componentDidMount(){
-        this.setState({
-            isMounted:true,
-        })
+        this._isMounted = true;
         axios.post('http://localhost:4000/User/switch2', this.state.user)
         .then(res => {
-            if(res.status = 200 && this.state.isMounted){
+            if(res.status = 200 && this._isMounted){
                 this.setState({
-                    split:res.data.split
+                    split:res.data.split,
+                    isLoading:false,
                 })
             }else{
                 console.log("Unable to qeury data");
@@ -36,16 +36,14 @@ export default class Switch extends Component {
         })
     }
     componentWillUnmount(){
-        this.setState({
-            isMounted:false,
-        })
+        this._isMounted = false;
     }
     
     handleClick(split,e) {
         e.preventDefault();
         axios.post('http://localhost:4000/User/switch', {user:this.state.user, split: split})
         .then(res => {
-            if(res.status = 200 && this.state.isMounted){
+            if(res.status = 200 && this._isMounted){
                 this.setState({
                     split:res.data.split,
                 })
