@@ -38,6 +38,16 @@ router.post("/register", (req, res) => {
           email: req.body.email,
           password: req.body.password,
           split:"ppl",
+          schedule: {
+            1:"push1",
+            2:"pull1",
+            3:"leg1",
+            4:"",
+            5:"push2",
+            6:"pull2",
+            0:"leg1",
+            
+          }
         });
   // Hash password before saving in database
         bcrypt.genSalt(10, (err, salt) => {
@@ -143,25 +153,36 @@ router.route('/workout').post((req,res) => {
     //Split.'ppl'.get/
     //return data
     let today = new Date();
-    let day = today.getDay(); // 0 = Sunday, 1 = Monday, ...
+    let weekday = today.getDay();
+    //Sunday - 0, Monday - 1
+
+    //Find the workout associated with the day
+    //Query the split and workout and return that
+
     User.findOne({'_id': req.body.id}, function (err, user){
-        let split = user.split;
-        const client = new MongoClient(uri, { useNewUrlParser: true });
+        let doc = {};
+        doc.split = user.split;
+        doc.workoutId = user.schedule[weekday];
 
-        client.connect(err => {
-            if(err){ return console.dir(err);}
-            var Splits = client.db("test").collection('Splits');
-            
-            Splits.findOne({_id : split}, function(err, routine){
-                if(err) throw err;
-                //console.log(routine);
+        if(doc.workoutId === ""){
+          res.status(200).sec(doc);
+        }else{
+          const client = new MongoClient(uri, { useNewUrlParser: true });
+          client.connect(err => {
+              if(err){ return console.dir(err);}
+              var Splits = client.db("test").collection('Splits');
+              
+              Splits.findOne({_id : doc.split}, function(err, routine){
+                  if(err) throw err;
+                  //console.log(routine);
+                  
+                  doc.workout = routine[doc.split][doc.workoutId];
 
-
-                res.status(200).send(routine);
-            })
-            client.close();
-        })
-
+                  res.status(200).send(doc);
+              })
+              client.close();
+          })
+        } 
         
     })
 })

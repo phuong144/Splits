@@ -18,6 +18,12 @@ const UserSchema = mongoose.Schema({
     },
     split:{
         type:String,
+        required:true,
+    },
+    schedule:{
+        type: Object,
+        required:true,
+
     },
     date: {
         type: Date,
