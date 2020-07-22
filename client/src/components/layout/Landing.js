@@ -13,10 +13,10 @@ class Landing extends Component {
               Have your own customized workout available in a click of a button
             </p>
             <br />
-            <div className="row">
+            <div className="row" style={{justifyContent:"center"}}>
 
             
-            <div className="col s6">
+            <div className="">
               <Link
                 to="/register"
                 style={{
@@ -29,7 +29,7 @@ class Landing extends Component {
                 Register
               </Link>
             </div>
-            <div className="col s6">
+            <div className="">
               <Link
                 to="/login"
                 style={{

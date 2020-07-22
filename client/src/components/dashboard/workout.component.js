@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route} from "react-router-dom";
+//import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios'
-import Navbar from "./navbar.component";
-import SignIn from "./signin.component";
-import SignUp from "./signup.component";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 

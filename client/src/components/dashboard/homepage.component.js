@@ -3,8 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 
 import Navbar from "./navbar.component";
-import SignIn from "./signin.component";
-import SignUp from "./signup.component";
 import Workout from "./workout.component";
 import Switch from "./change.component";
 export default class HomePage extends Component {
