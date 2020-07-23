@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './navbar.css';
+//import './navbar.css';
 export default class Navbar extends Component {
 
   render() {
     return (
-      <div>
+      <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+        
+        <div className="collpase navbar-collapse">
+        <ul className="navbar-nav mr-auto" style={{margin:"auto"}}>
+          <li className="navbar-item">
+          <Link to="/dashboard/workout" className="nav-link">View Today's Workout</Link>
+          </li>
+          <li className="navbar-item">
+          <Link to="/dashboard/switch" className="nav-link">Choose Split</Link>
+          </li>
+        </ul>
+        </div>
+      </nav>
 
-      
+      /*
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
       
         <div className="collpase navbar-collapse" > 
@@ -26,7 +38,7 @@ export default class Navbar extends Component {
         </div>
         </div>
       </nav>
-      </div>
+     */
     );
   }
 }

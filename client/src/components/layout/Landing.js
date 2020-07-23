@@ -10,7 +10,9 @@ class Landing extends Component {
               <b>Welcome to Splits</b> 
             </h4>
             <p className="flow-text grey-text text-darken-1">
-              Have your own customized workout available in a click of a button
+              Have access to the most effective science-based workout in a click of a button
+              <br></br>
+              Customizable workout schedule to fit your preferences
             </p>
             <br />
             <div className="row" style={{justifyContent:"center"}}>

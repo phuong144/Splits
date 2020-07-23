@@ -44,11 +44,9 @@ class Workout extends Component {
               isLoading:false,
             })
           }
-
-            
-          }else{
-            console.log("Unmounted");
-          }
+        }else{
+          console.log("Unmounted");
+        }
       })
     }
 
