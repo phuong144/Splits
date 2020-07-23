@@ -115,39 +115,6 @@ router.post("/login", (req, res) => {
     });
 });
 
-/*
-router.route('/signup').post((req, res) => {
-    const user = new User({
-        email: req.body.email,
-        password: req.body.password,
-        split:"ppl",
-    }).save((err, response) =>{
-        if(err) res.status(400).send(err);
-        res.status(200).send(response);
-    })
-})
-
-router.route('/signin').post((req, res) =>{
-    //Checks if email is present or not
-    User.findOne({'email': req.body.email}, (err, user) => {
-        if(!user) res.json({message: 'Login failed, user not found'})
-        //console.log(user + "this is a user");
-        //console.log(user.split); works
-
-        // If email is present, compare to password
-        user.comparePassword(req.body.password, (err, isMatch)=>{
-            if(err) throw err;
-            if(!isMatch) return res.status(400).json({
-                message:'Wrong Password'
-            });
-            res.status(200).send('Logged in successfully')
-        })
-    })
-})
-
-*/
-
-
 router.route('/workout').post((req,res) => {
     // Get user Split, ex User.split == 'ppl'
     //Split.'ppl'.get/
@@ -190,7 +157,10 @@ router.route('/workout').post((req,res) => {
 })
 
 router.route('/switch').post((req,res) => {
+
   /*
+
+  // Attempt to use native mongodb driver if mongoose method deprecates
   const client = new MongoClient(uri, { useNewUrlParser: true });
   //const newsplit = req.body.split
   console.log("id = "+req.body.user.id);
@@ -218,13 +188,9 @@ router.route('/switch').post((req,res) => {
           client.close();
           return null;
         }
-      }).catch(err => console.error(`Failed to find and update document: ${err}`));
-      
-      
-      client.close();
-
-      
-  })
+      }).catch(err => console.error(`Failed to find and update document: ${err}`));   
+      client.close();  
+    })
     */
 
     let defaultPPL = {   
@@ -267,47 +233,37 @@ router.route('/switch').post((req,res) => {
         }}, 
         {new:true} , 
         function (err, doc){
-          if(err){ return console.dir(err);}
-          
+          if(err){ return console.dir(err);}        
           res.status(200).send(doc);
-
-      })
+        })
     }else if(newsplit == 'upper/lower'){
       User.findOneAndUpdate({_id:req.body.user.id}, 
         {$set:{
             split:newsplit,
             schedule: defaultUpperLower,
-  
         }}, 
         {new:true} , 
         function (err, doc){
           if(err){ return console.dir(err);}
           res.status(200).send(doc);
-          
-          
-      
-      })
+        })
     }else if(newsplit == "full"){
       User.findOneAndUpdate({_id:req.body.user.id}, 
         {$set:{
             split:newsplit,
             schedule: defaultFull,
-  
         }}, 
         {new:true} , 
         function (err, doc){
           if(err){ return console.dir(err);}
           res.status(200).send(doc);
-          
-          
-      
-      })
+        })
     }
     
 })
 
 
-router.route('/switch2').post((req,res) => {
+router.route('/getSplit').post((req,res) => {
     
     User.findOne({'_id': req.body.id}, function(err, user){
         if(!user){
@@ -316,13 +272,6 @@ router.route('/switch2').post((req,res) => {
         else{
             res.status(200).send(user);
         }
-        //console.log(user + "this is a user");
-        //console.log(user.split); works
-
-        // If email is present, compare to password
-        
-        
-        
     })
 })
 

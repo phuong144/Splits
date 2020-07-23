@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import axios from 'axios'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { json } from 'body-parser';
 
 class Workout extends Component {
     constructor(props) {
@@ -73,6 +74,14 @@ class Workout extends Component {
           </div>
           )
         }else{
+          for (const name in this.state.workout) {
+            if (this.state.workout.hasOwnProperty(name)) {
+                console.log(name + " -> " + this.state.workout[name]);
+                // list.<Exercise name=name count=this.state.workout[name] />
+                // In Exercise, save props as state, styleeach exercise line
+                // render {list} of Exercises
+            }
+        }
           return (
 
             <div style={{textAlign:"center"}}>

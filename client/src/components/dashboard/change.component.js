@@ -27,7 +27,7 @@ class Change extends Component {
         this._isMounted = true;
         
         //console.log(this.state.user);
-        axios.post('/api/users/switch2', this.state.user)
+        axios.post('/api/users/getSplit', this.state.user)
         .then(res => {
             if(res.status = 200 && this._isMounted){
                 this.setState({
