@@ -154,6 +154,7 @@ router.route('/workout').post((req,res) => {
     //return data
     let today = new Date();
     let weekday = today.getDay();
+    console.log("weekday = "+weekday);
     //Sunday - 0, Monday - 1
 
     //Find the workout associated with the day
@@ -165,6 +166,7 @@ router.route('/workout').post((req,res) => {
         doc.workoutId = user.schedule[weekday];
 
         if(doc.workoutId === ""){
+          doc.weekday = weekday;
           res.status(200).send(doc);
         }else{
           const client = new MongoClient(uri, { useNewUrlParser: true });
@@ -175,7 +177,7 @@ router.route('/workout').post((req,res) => {
               Splits.findOne({_id : doc.split}, function(err, routine){
                   if(err) throw err;
                   //console.log(routine);
-                  
+                  doc.weekday = weekday;
                   doc.workout = routine[doc.split][doc.workoutId];
 
                   res.status(200).send(doc);
@@ -266,6 +268,7 @@ router.route('/switch').post((req,res) => {
         {new:true} , 
         function (err, doc){
           if(err){ return console.dir(err);}
+          
           res.status(200).send(doc);
 
       })

@@ -27,6 +27,7 @@ class Workout extends Component {
       .then(res => {
         //console.log(res.data);
         if(res.status == 200 && this._isMounted == true){
+          console.log("weekday = "+res.data.weekday);
           if(res.data.workoutId == ""){
             this.setState({
               workoutId : "", 
