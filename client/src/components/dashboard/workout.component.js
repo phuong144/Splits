@@ -21,9 +21,11 @@ class Workout extends Component {
     componentDidMount() {
       this._isMounted = true;
       const { user } = this.props.auth;
+      let today = new Date();
+      let weekday = today.getDay();
 
       
-      axios.post('/api/users/workout', user)
+      axios.post('/api/users/workout', {user:user, weekday:weekday})
       .then(res => {
         //console.log(res.data);
         if(res.status == 200 && this._isMounted == true){

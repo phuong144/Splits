@@ -152,15 +152,15 @@ router.route('/workout').post((req,res) => {
     // Get user Split, ex User.split == 'ppl'
     //Split.'ppl'.get/
     //return data
-    let today = new Date();
-    let weekday = today.getDay();
+    
+    let weekday = req.body.weekday;
     console.log("weekday = "+weekday);
     //Sunday - 0, Monday - 1
 
     //Find the workout associated with the day
     //Query the split and workout and return that
 
-    User.findOne({'_id': req.body.id}, function (err, user){
+    User.findOne({'_id': req.body.user.id}, function (err, user){
         let doc = {};
         doc.split = user.split;
         doc.workoutId = user.schedule[weekday];
