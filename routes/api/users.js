@@ -165,7 +165,7 @@ router.route('/workout').post((req,res) => {
         doc.workoutId = user.schedule[weekday];
 
         if(doc.workoutId === ""){
-          res.status(200).sec(doc);
+          res.status(200).send(doc);
         }else{
           const client = new MongoClient(uri, { useNewUrlParser: true });
           client.connect(err => {
@@ -224,17 +224,82 @@ router.route('/switch').post((req,res) => {
       
   })
     */
+
+    let defaultPPL = {   
+        1:"push1",
+        2:"pull1",
+        3:"leg1",
+        4:"",
+        5:"push2",
+        6:"pull2",
+        0:"leg1",
+    }
+    let defaultUpperLower = {
+        1:"lower1",
+        2:"upper1",
+        3:"",
+        4:"lower2",
+        5:"upper2",
+        6:"",
+        0:"",
+    }
+
+    let defaultFull = {
+      1:"full1",
+      2:"",
+      3:"",
+      4:"full2",
+      5:"",
+      6:"",
+      0:"",
+
+    }
    
     const newsplit = req.body.split
-    User.findOneAndUpdate({_id:req.body.user.id}, {$set:{split:newsplit}}, {new:true} , function (err, doc){
-        if(err){ return console.dir(err);}
-        res.status(200).send(doc);
-        
-        
-    
-    })
-    
-    
+
+    if(newsplit === "ppl"){
+      User.findOneAndUpdate({_id:req.body.user.id}, 
+        {$set:{
+            split:newsplit,
+            schedule: defaultPPL,
+        }}, 
+        {new:true} , 
+        function (err, doc){
+          if(err){ return console.dir(err);}
+          res.status(200).send(doc);
+
+      })
+    }else if(newsplit == 'upper/lower'){
+      User.findOneAndUpdate({_id:req.body.user.id}, 
+        {$set:{
+            split:newsplit,
+            schedule: defaultUpperLower,
+  
+        }}, 
+        {new:true} , 
+        function (err, doc){
+          if(err){ return console.dir(err);}
+          res.status(200).send(doc);
+          
+          
+      
+      })
+    }else if(newsplit == "full"){
+      User.findOneAndUpdate({_id:req.body.user.id}, 
+        {$set:{
+            split:newsplit,
+            schedule: defaultFull,
+  
+        }}, 
+        {new:true} , 
+        function (err, doc){
+          if(err){ return console.dir(err);}
+          res.status(200).send(doc);
+          
+          
+      
+      })
+    }
     
 })
 

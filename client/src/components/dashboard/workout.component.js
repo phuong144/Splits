@@ -15,7 +15,7 @@ class Workout extends Component {
           workout:{},
           isLoading:true,
         }
-        console.log(this.state.user);
+        //console.log(this.state.user);
     }
 
     componentDidMount() {
@@ -56,7 +56,14 @@ class Workout extends Component {
 
     render() {
         const { user } = this.props.auth;
-        if(this.state.workoutId == ''){
+        if(this.state.isLoading){
+          return (
+            <div style={{textAlign:"center"}}>
+              <h1>Loading...</h1>
+            </div>
+          );
+        }
+        else if(this.state.workoutId == ''){
           return (
           <div style={{textAlign:"center"}}>
             <h1>REST DAY</h1>

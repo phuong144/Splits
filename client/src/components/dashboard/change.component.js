@@ -17,7 +17,7 @@ class Change extends Component {
           split:'',
           isLoading:true,
         }
-        console.log(this.state.user);
+        //console.log(this.state.user);
         this.handleClick = this.handleClick.bind(this);
         //console.log("Email : " + this.state.user.email);
     }
@@ -26,7 +26,7 @@ class Change extends Component {
     componentDidMount(){
         this._isMounted = true;
         
-        console.log(this.state.user);
+        //console.log(this.state.user);
         axios.post('/api/users/switch2', this.state.user)
         .then(res => {
             if(res.status = 200 && this._isMounted){
@@ -65,7 +65,7 @@ class Change extends Component {
     render() {
         return(
             <div>
-            <h1 style={{textAlign:"center"}}>Current split : {this.state.split}</h1>
+            <h1 style={{textAlign:"center"}}>Current split : {this.state.isLoading? "Loading..." : this.state.split}</h1>
             
             <div className='row' style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
                 <button onClick={(e) => this.handleClick('ppl', e)} href='/'>Push-Pull-Legs</button>
