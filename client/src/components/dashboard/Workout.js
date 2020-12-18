@@ -3,12 +3,11 @@ import React, {Component} from 'react';
 import axios from 'axios'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { json } from 'body-parser';
 
 class Workout extends Component {
     constructor(props) {
         super(props);
-        let _isMounted = false;
+        // let _isMounted = false;
         this.state = {
           user:this.props.user,
           split:'',
@@ -29,9 +28,9 @@ class Workout extends Component {
       axios.post('/api/users/workout', {user:user, weekday:weekday})
       .then(res => {
         //console.log(res.data);
-        if(res.status == 200 && this._isMounted == true){
-          console.log("weekday = "+res.data.weekday);
-          if(res.data.workoutId == ""){
+        if(res.status === 200 && this._isMounted){
+          // console.log("weekday = "+res.data.weekday);
+          if(res.data.workoutId === ""){
             this.setState({
               workoutId : "", 
               isLoading:false,
@@ -62,7 +61,7 @@ class Workout extends Component {
             </div>
           );
         }
-        else if(this.state.workoutId == ''){
+        else if(this.state.workoutId === ''){
           return (
           <div style={{textAlign:"center"}}>
             <h1>REST DAY</h1>
@@ -72,7 +71,7 @@ class Workout extends Component {
           const workoutList = [];
           for (const name in this.state.workout) {
             if (this.state.workout.hasOwnProperty(name)) {
-                console.log(name + " -> " + this.state.workout[name]);
+                // console.log(name + " -> " + this.state.workout[name]);
                 workoutList.push(<li key={name}>{name} : {this.state.workout[name]}</li>)
             }
           }

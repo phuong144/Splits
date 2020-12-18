@@ -8,20 +8,17 @@ class Choose extends Component {
     constructor(props) {
         
         super(props);
-        let _isMounted = false;
-        
-        
+        // let _isMounted = false;
         this.state = {
             user:this.props.user,
-          isMounted:false,
-          split:'',
-          isLoading:true,
+            isMounted:false,
+            split:'',
+            isLoading:true,
         }
         //console.log(this.state.user);
         this.handleClick = this.handleClick.bind(this);
         //console.log("Email : " + this.state.user.email);
     }
-
 
     componentDidMount(){
         this._isMounted = true;
@@ -29,7 +26,7 @@ class Choose extends Component {
         //console.log(this.state.user);
         axios.post('/api/users/getSplit', this.state.user)
         .then(res => {
-            if(res.status = 200 && this._isMounted){
+            if(res.status === 200 && this._isMounted){
                 this.setState({
                     split:res.data.split,
                     isLoading:false,
@@ -48,7 +45,7 @@ class Choose extends Component {
         
         axios.post('/api/users/switch', {user:this.state.user, split: split})
         .then(res => {
-            if(res.status = 200 && this._isMounted){
+            if(res.status === 200 && this._isMounted){
                 this.setState({
                     split:res.data.split,
                 })

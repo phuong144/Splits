@@ -11,7 +11,6 @@ const validateLoginInput = require("../../validation/login");
 const User = require("../../models/User");
 
 let mongoose = require('mongoose');
-
 let db = mongoose.connection;
 // Retrieve
 var MongoClient = require('mongodb').MongoClient;
@@ -97,7 +96,7 @@ router.post("/login", (req, res) => {
         payload,
         process.env.secretOrKey,
         {
-          expiresIn: 9000 // 1 year in seconds
+          expiresIn: 31556926 // 1 year in seconds
         },
         (err, token) => {
           res.json({
@@ -115,19 +114,19 @@ router.post("/login", (req, res) => {
 });
 });
 
-router.route('/workout').post((req,res) => {
+router.route('/workout').post(async (req,res) => {
     // Get user Split, ex User.split == 'ppl'
     //Split.'ppl'.get/
     //return data
     
     let weekday = req.body.weekday;
-    console.log("weekday = "+weekday);
+    // console.log("weekday = "+weekday);
     //Sunday - 0, Monday - 1
 
     //Find the workout associated with the day
     //Query the split and workout and return that
 
-    User.findOne({'_id': req.body.user.id}, function (err, user){
+    User.findOne({'_id': req.body.user.id}, async function (err, user){
         let doc = {};
         doc.split = user.split;
         doc.workoutId = user.schedule[weekday];
@@ -136,8 +135,8 @@ router.route('/workout').post((req,res) => {
           doc.weekday = weekday;
           res.status(200).send(doc);
         }else{
-          const client = new MongoClient(uri, { useNewUrlParser: true });
-          client.connect(err => {
+          const client =  new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+          client.connect(async (err) => {
               if(err){ return console.dir(err);}
               var Splits = client.db("test").collection('Splits');
               
@@ -148,8 +147,8 @@ router.route('/workout').post((req,res) => {
                   doc.workout = routine[doc.split][doc.workoutId];
 
                   res.status(200).send(doc);
+                  return client.close();
               })
-              client.close();
           })
         } 
         
@@ -195,7 +194,7 @@ router.route('/switch').post((req,res) => {
             split:newsplit,
             schedule: defaultPPL,
         }}, 
-        {new:true} , 
+        {new:true, useFindAndModify: false} , 
         function (err, doc){
           if(err){ return console.dir(err);}        
           res.status(200).send(doc);
@@ -206,7 +205,7 @@ router.route('/switch').post((req,res) => {
             split:newsplit,
             schedule: defaultUpperLower,
         }}, 
-        {new:true} , 
+        {new:true, useFindAndModify: false} , 
         function (err, doc){
           if(err){ return console.dir(err);}
           res.status(200).send(doc);
@@ -217,7 +216,7 @@ router.route('/switch').post((req,res) => {
             split:newsplit,
             schedule: defaultFull,
         }}, 
-        {new:true} , 
+        {new:true, useFindAndModify: false} , 
         function (err, doc){
           if(err){ return console.dir(err);}
           res.status(200).send(doc);

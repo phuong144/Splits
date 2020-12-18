@@ -1,4 +1,4 @@
-import React, { useEffect, useState }from 'react';
+import React, { useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -62,7 +62,7 @@ export function SignUp(props) {
     }
     if (props.errors) {
       setError(props.errors);
-      console.log(errors);
+      console.log(props.errors);
     }
   }, [props]);
 
