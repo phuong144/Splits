@@ -114,10 +114,6 @@ export function SignIn(props) {
               className: classes.input
             }}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
