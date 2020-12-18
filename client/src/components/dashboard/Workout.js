@@ -51,13 +51,10 @@ class Workout extends Component {
     }
 
     componentWillUnmount() {
-        
       this._isMounted=false
-      
     }
 
     render() {
-        const { user } = this.props.auth;
         if(this.state.isLoading){
           return (
             <div style={{textAlign:"center"}}>
@@ -72,19 +69,19 @@ class Workout extends Component {
           </div>
           )
         }else{
+          const workoutList = [];
           for (const name in this.state.workout) {
             if (this.state.workout.hasOwnProperty(name)) {
                 console.log(name + " -> " + this.state.workout[name]);
-                // list.<Exercise name=name count=this.state.workout[name] />
-                // In Exercise, save props as state, styleeach exercise line
-                // render {list} of Exercises
+                workoutList.push(<li key={name}>{name} : {this.state.workout[name]}</li>)
             }
-        }
+          }
           return (
-
             <div style={{textAlign:"center"}}>
-              <h1>{this.state.split} - {this.state.workoutId}</h1>
-              <pre>{JSON.stringify(this.state.workout, null, 2) }</pre>
+              <h3>{this.state.split.toUpperCase()} - {this.state.workoutId.toUpperCase()}</h3>
+              <ul>
+                {workoutList}
+              </ul>
             </div>
           )
         }

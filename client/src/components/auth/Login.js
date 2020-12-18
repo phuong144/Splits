@@ -17,7 +17,7 @@ componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard"); // push user to dashboard when they login
     }
-if (nextProps.errors) {
+    if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });
@@ -44,7 +44,7 @@ onSubmit = e => {
 };
 render() {
     const { errors } = this.state;
-return (
+    return (
       <div className="container">
         <div style={{ marginTop: "4rem" }} className="row">
           <div className="col s8 offset-s2">
@@ -116,6 +116,7 @@ return (
     );
   }
 }
+
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,

@@ -4,7 +4,7 @@ import axios from 'axios'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-class Change extends Component {
+class Choose extends Component {
     constructor(props) {
         
         super(props);
@@ -79,7 +79,7 @@ class Change extends Component {
         );
     }
 }
-Change.propTypes = {
+Choose.propTypes = {
     auth: PropTypes.object.isRequired
   };
   const mapStateToProps = state => ({
@@ -87,7 +87,7 @@ Change.propTypes = {
   });
   export default connect(
     mapStateToProps
-  )(Change);
+  )(Choose);
 /*
 <a onClick={this.handleClick('ppl')}>Push-Pull-Legs</a>
                 <a onClick={this.handleClick('upper/lower')}>Upper - Lower</a>

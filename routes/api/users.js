@@ -76,43 +76,43 @@ router.post("/login", (req, res) => {
       return res.status(400).json(errors);
     }
   const email = req.body.email;
-    const password = req.body.password;
+  const password = req.body.password;
   // Find user by email
-    User.findOne({ email }).then(user => {
-      // Check if user exists
-      if (!user) {
-        return res.status(404).json({ emailnotfound: "Email not found" });
-      }
+  User.findOne({ email }).then(user => {
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ emailnotfound: "Email not found" });
+    }
   // Check password
-      bcrypt.compare(password, user.password).then(isMatch => {
-        if (isMatch) {
-          // User matched
-          // Create JWT Payload
-          const payload = {
-            id: user.id,
-            name: user.name
-          };
-  // Sign token
-          jwt.sign(
-            payload,
-            process.env.secretOrKey,
-            {
-              expiresIn: 31556926 // 1 year in seconds
-            },
-            (err, token) => {
-              res.json({
-                success: true,
-                token: "Bearer " + token
-              });
-            }
-          );
-        } else {
-          return res
-            .status(400)
-            .json({ passwordincorrect: "Password incorrect" });
+  bcrypt.compare(password, user.password).then(isMatch => {
+    if (isMatch) {
+      // User matched
+      // Create JWT Payload
+      const payload = {
+        id: user.id,
+        name: user.name
+      };
+    // Sign token
+      jwt.sign(
+        payload,
+        process.env.secretOrKey,
+        {
+          expiresIn: 9000 // 1 year in seconds
+        },
+        (err, token) => {
+          res.json({
+            success: true,
+            token: "Bearer " + token
+          });
         }
-      });
-    });
+      );
+    } else {
+      return res
+        .status(400)
+        .json({ passwordincorrect: "Password incorrect" });
+    }
+});
+});
 });
 
 router.route('/workout').post((req,res) => {
@@ -157,42 +157,6 @@ router.route('/workout').post((req,res) => {
 })
 
 router.route('/switch').post((req,res) => {
-
-  /*
-
-  // Attempt to use native mongodb driver if mongoose method deprecates
-  const client = new MongoClient(uri, { useNewUrlParser: true });
-  //const newsplit = req.body.split
-  console.log("id = "+req.body.user.id);
-  
-  client.connect(err => {
-      if(err){ return console.dir(err + " errrrr");}
-      var users = client.db("test").collection('users');
-      const newsplit = req.body.split;
-      console.log(newsplit);
-      users.findOneAndUpdate({_id:req.body.user.id}, {$set:{split:newsplit}}, {returnOriginal:false}, function(error, result){
-        if (error) { throw error; }
-
-        else { 
-          console.log(result.val);
-          res.status(200).send(result.val);
-        }
-      })/*
-      .then(updatedDocument =>{
-        if(updatedDocument){
-          console.log(`Successfully updated document: ${updatedDocument}.`);
-          console.log(updatedDocument);
-          res.status(200).send(updatedDocument);
-        }else{
-          console.log("No document matches the provided query.")
-          client.close();
-          return null;
-        }
-      }).catch(err => console.error(`Failed to find and update document: ${err}`));   
-      client.close();  
-    })
-    */
-
     let defaultPPL = {   
         1:"push1",
         2:"pull1",
@@ -262,9 +226,7 @@ router.route('/switch').post((req,res) => {
     
 })
 
-
 router.route('/getSplit').post((req,res) => {
-    
     User.findOne({'_id': req.body.id}, function(err, user){
         if(!user){
             res.json({message: 'user not found'});
